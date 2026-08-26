@@ -6,6 +6,7 @@ import { authConfig } from "./auth/auth.config";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig.callbacks,
+  secret: process.env.BETTER_AUTH_SECRET,
   adapter: PrismaAdapter(prisma),
   providers: [
     Google({
