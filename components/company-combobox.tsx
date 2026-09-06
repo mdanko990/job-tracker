@@ -92,7 +92,7 @@ export function CompanyCombobox({ value, onChange }: CompanyComboboxProps) {
                   onSelect={() => createCompany.mutate({ name: search.trim() })}
                 >
                   <Plus className="mr-2 h-4 w-4" />
-                  Create "{search.trim()}"
+                  Create &quot;{search.trim()}&quot;
                 </CommandItem>
               )}
             </CommandGroup>

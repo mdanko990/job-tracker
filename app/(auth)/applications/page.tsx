@@ -1,7 +1,6 @@
 // app/(auth)/applications/page.tsx
 "use client";
 
-import { useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { DataTable } from "@/components/data-table";
 import { columns, ApplicationRow } from "./columns";
@@ -10,11 +9,8 @@ import { useRouter } from "next/navigation";
 
 export default function ApplicationsPage() {
   const router = useRouter();
-  const [statusFilter, setStatusFilter] = useState("ALL");
 
-  const { data, isLoading } = trpc.application.list.useQuery(
-    statusFilter === "ALL" ? undefined : { status: statusFilter as any },
-  );
+  const { data, isLoading } = trpc.application.list.useQuery();
 
   if (isLoading) return <div>Loading...</div>;
 
