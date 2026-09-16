@@ -234,13 +234,15 @@ export default function ApplicationDetailPage() {
         </div>
         <div className="col-span-4">
           <ContactsSection companyId={data.companyId} />
-          {data.currentStatus !== "SAVED" ? (
-            <AnswersSection applicationId={id} />
-          ) : null}
         </div>
         <div className="col-span-4">
           <HistorySection applicationId={id} events={data.statusEvents} />
         </div>
+        {data.currentStatus !== "SAVED" ? (
+          <div className="col-span-12">
+            <AnswersSection applicationId={id} />
+          </div>
+        ) : null}
         <Field className="col-span-12">
           <Label htmlFor="description">Description</Label>
           <Controller
