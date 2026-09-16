@@ -22,7 +22,7 @@ import { AnswersSection } from "@/components/answers-section";
 import { HistorySection } from "@/components/history-section";
 import { StatusStepper } from "@/components/status-stepper";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, SquareArrowOutUpRight } from "lucide-react";
 
 export default function ApplicationDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -45,9 +45,12 @@ export default function ApplicationDetailPage() {
     handleSubmit,
     reset,
     formState: { errors },
+    watch,
   } = useForm<EditApplicationFormInput, unknown, EditApplicationFormValues>({
     resolver: zodResolver(editApplicationFormSchema),
   });
+
+  const jobLink = watch("url");
 
   useEffect(() => {
     if (data) {
@@ -132,12 +135,19 @@ export default function ApplicationDetailPage() {
 
           <Field>
             <Label htmlFor="url">Link</Label>
-            <Input
-              id="url"
-              type="url"
-              {...register("url")}
-              onBlur={saveOnBlur}
-            />
+            <div className="flex gap-2">
+              <Input
+                id="url"
+                type="url"
+                {...register("url")}
+                onBlur={saveOnBlur}
+              />
+              <Button variant="outline" size="icon">
+                <a href={jobLink} target="_blank">
+                  <SquareArrowOutUpRight />
+                </a>
+              </Button>
+            </div>
             {errors.url && (
               <p className="text-sm text-destructive">{errors.url.message}</p>
             )}
