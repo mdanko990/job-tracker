@@ -5,6 +5,8 @@ import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { features } from "@/lib/table-features";
+import { StatusBadge } from "@/components/status-badge";
+import { ActionBadge } from "@/components/action-badge";
 
 export type ApplicationRow = {
   id: string;
@@ -97,6 +99,10 @@ export const columns: ColumnDef<typeof features, ApplicationRow>[] = [
         <FilterInput column={column} placeholder="Filter status..." />
       </div>
     ),
+    cell: ({ row }) => {
+      console.log(row.original.currentStatus);
+      return <StatusBadge status={row.original.currentStatus} />;
+    },
   },
   {
     accessorKey: "actionType",
@@ -107,7 +113,12 @@ export const columns: ColumnDef<typeof features, ApplicationRow>[] = [
         <FilterInput column={column} placeholder="Filter action..." />
       </div>
     ),
-    cell: ({ row }) => row.original.actionType ?? "—",
+    cell: ({ row }) =>
+      row.original.actionType ? (
+        <ActionBadge actionType={row.original.actionType} />
+      ) : (
+        "—"
+      ),
   },
   {
     accessorKey: "lastInteractionAt",

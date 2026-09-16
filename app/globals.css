@@ -46,6 +46,30 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  --color-status-saved: var(--status-saved);
+  --color-status-applied: var(--status-applied);
+  --color-status-screening: var(--status-screening);
+  --color-status-technical-interview: var(--status-technical-interview);
+  --color-status-final-round: var(--status-final-round);
+  --color-status-offer: var(--status-offer);
+  --color-status-terminal: var(--status-terminal);
+
+  --color-action-peer-connection: var(--action-peer-connection);
+  --color-action-hr-connection: var(--action-hr-connection);
+  --color-action-peer-message: var(--action-peer-message);
+  --color-action-hr-message: var(--action-hr-message);
+  --color-action-email-sent: var(--action-email-sent);
+  --color-action-email-received: var(--action-email-received);
+  --color-action-confirmation-received: var(--action-confirmation-received);
+  --color-action-invitation-received: var(--action-invitation-received);
+  --color-action-invitation-accepted: var(--action-invitation-accepted);
+  --color-action-phone-call: var(--action-phone-call);
+  --color-action-video-call: var(--action-video-call);
+  --color-action-take-home-submitted: var(--action-take-home-submitted);
+  --color-action-follow-up-sent: var(--action-follow-up-sent);
+  --color-action-offer-received: var(--action-offer-received);
+  --color-action-other: var(--action-other);
 }
 
 :root {
@@ -82,6 +106,30 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  --status-saved: #A5509F;
+  --status-applied: #D66EAB;
+  --status-screening: #72C9BF;
+  --status-technical-interview: #AED688;
+  --status-final-round: #F69173;
+  --status-offer: #FCB247;
+  --status-terminal: #94A3B8; /* REJECTED / WITHDRAWN / GHOSTED, not in your palette,*/
+
+  --action-peer-connection: #71C7E2;
+  --action-hr-connection: #23AFD6;
+  --action-peer-message: #B4DCE1;
+  --action-hr-message: #3D4A81;
+  --action-email-sent: #F59138;
+  --action-email-received: #F6CFB8;
+  --action-confirmation-received: #71B578;
+  --action-invitation-received: #8AD1BA;
+  --action-invitation-accepted: #589651;
+  --action-phone-call: #AC90BB;
+  --action-video-call: #815799;
+  --action-take-home-submitted: #EF553C;
+  --action-follow-up-sent: #FADE7D;
+  --action-offer-received: #F9A2BF;
+  --action-other: #D2CFC8;
 }
 
 .dark {

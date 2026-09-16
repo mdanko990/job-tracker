@@ -63,7 +63,11 @@ export function DataTable<TData extends RowData>({
       <TableBody>
         {table.getRowModel().rows.length ? (
           table.getRowModel().rows.map((row) => (
-            <TableRow key={row.id} onClick={() => onRowClick?.(row.original)}>
+            <TableRow
+              key={row.id}
+              onClick={() => onRowClick?.(row.original)}
+              className="cursor-pointer"
+            >
               {row.getAllCells().map((cell) => (
                 <TableCell key={cell.id}>
                   <table.FlexRender cell={cell} />

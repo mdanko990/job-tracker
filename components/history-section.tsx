@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { trpc } from "@/lib/trpc";
+import { ActionBadge } from "./action-badge";
 
 const ACTION_TYPES = [
   "PEER_CONNECTION",
@@ -131,9 +132,10 @@ export function HistorySection({ applicationId, events }: HistorySectionProps) {
                 {event.status.replaceAll("_", " ")}
               </span>
               {event.actionType && (
-                <span className="text-muted-foreground">
-                  · {event.actionType.replaceAll("_", " ")}
-                </span>
+                <>
+                  <span className="text-muted-foreground">·</span>
+                  <ActionBadge actionType={event.actionType} />
+                </>
               )}
               <span className="text-xs text-muted-foreground ml-auto">
                 {new Date(event.occurredAt).toLocaleString()}

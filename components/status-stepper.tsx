@@ -15,6 +15,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { trpc } from "@/lib/trpc";
+import { STATUS_BUTTON_CLASS } from "@/lib/status-colors";
 
 const TERMINAL_STATUSES = ["REJECTED", "WITHDRAWN", "GHOSTED"] as const;
 
@@ -170,7 +171,11 @@ export function StatusStepper({
       onOpenChange={(next) => (next ? setOpen(true) : reset())}
     >
       <PopoverTrigger asChild>
-        <Button type="button" size="sm">
+        <Button
+          type="button"
+          size="sm"
+          className={STATUS_BUTTON_CLASS[currentStatus]}
+        >
           {currentStatus.replaceAll("_", " ")}
         </Button>
       </PopoverTrigger>
