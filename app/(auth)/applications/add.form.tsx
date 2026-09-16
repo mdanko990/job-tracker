@@ -75,7 +75,7 @@ export default function AddForm() {
             <DialogDescription>Save a job posting to track.</DialogDescription>
           </DialogHeader>
           <FieldGroup>
-            <div className="grid grid-cols-6 gap-4 mb-4">
+            <div className="grid grid-cols-6 gap-4 mb-4 max-h-[80vh]">
               <div className="col-span-2 flex flex-col gap-2">
                 <Field>
                   <Label htmlFor="title">Title</Label>
@@ -203,6 +203,7 @@ export default function AddForm() {
                   control={control}
                   render={({ field }) => (
                     <RichTextEditor
+                      className="h-7/10"
                       value={field.value ?? ""}
                       onChange={field.onChange}
                     />

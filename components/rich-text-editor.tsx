@@ -7,24 +7,32 @@ import { Toggle } from "@/components/ui/toggle";
 import { Button } from "@/components/ui/button";
 import { Bold, Italic, List, Minus, Plus } from "lucide-react";
 import { useEffect } from "react";
+import { cn } from "@/lib/utils";
 
 interface RichTextEditorProps {
   value: string;
+  className?: string;
   onChange: (html: string) => void;
 }
 
 const FONT_SIZES = ["12px", "14px", "16px", "18px", "24px", "32px"];
 
-export function RichTextEditor({ value, onChange }: RichTextEditorProps) {
+export function RichTextEditor({
+  value,
+  className = "",
+  onChange,
+}: RichTextEditorProps) {
   const editor = useEditor({
     extensions: [StarterKit, TextStyle, Color, FontSize],
     content: value,
     onUpdate: ({ editor }) => onChange(editor.getHTML()),
     editorProps: {
       attributes: {
-        class:
+        class: cn(
           "min-h-[300px] rounded-md border px-3 py-2 text-sm focus:outline-none overflow-scroll h-full" +
-          "[&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:my-1",
+            "[&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:my-1 " +
+            className,
+        ),
       },
     },
   });
