@@ -14,9 +14,15 @@ const statusEnum = z.enum([
 ]);
 
 const actionTypeEnum = z.enum([
+  "PEER_CONNECTION",
+  "HR_CONNECTION",
+  "PEER_MESSAGE",
+  "HR_MESSAGE",
   "CONFIRMATION_RECEIVED",
   "EMAIL_SENT",
   "EMAIL_RECEIVED",
+  "INVITATION_RECEIVED",
+  "INVITATION_ACCEPTED",
   "PHONE_CALL",
   "VIDEO_CALL",
   "TAKE_HOME_SUBMITTED",
