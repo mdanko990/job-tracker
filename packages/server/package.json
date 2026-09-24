@@ -1,0 +1,11 @@
+{
+  "name": "@job-tracker/server",
+  "version": "0.0.0",
+  "main": "./routers/_app.ts",
+  "dependencies": {
+    "@job-tracker/db": "*",
+    "@trpc/server": "^11.18.0",
+    "zod": "^4.4.3",
+    "superjson": "^2.2.2"
+  }
+}
