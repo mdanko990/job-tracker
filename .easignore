@@ -1,0 +1,14 @@
+.agents
+.claude
+.git
+node_modules
+
+# Never upload secrets to EAS (.easignore replaces .gitignore for uploads).
+# The mobile .env only holds public EXPO_PUBLIC_* values, so it may be sent.
+.env*
+!apps/mobile/.env
+
+# Not needed to build the mobile app
+**/.next
+apps/mobile/android
+apps/mobile/ios

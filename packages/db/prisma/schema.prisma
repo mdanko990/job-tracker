@@ -19,6 +19,7 @@ model User {
   applications  Application[]
   companies     Company[]
   sessions      Session[]
+  mobileSessions MobileSession[]
 }
 
 model Account {
@@ -45,6 +46,18 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model MobileSession {
+  id        String   @id @default(cuid())
+  tokenHash String   @unique
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model VerificationToken {

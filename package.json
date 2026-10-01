@@ -7,16 +7,27 @@
   ],
   "scripts": {
     "dev:web": "npm run dev --workspace=@job-tracker/web",
-    "dev:mobile": "npm run start --tunnel --workspace=@job-tracker/mobile",
+    "dev:mobile": "npm run start --workspace=@job-tracker/mobile -- --go --tunnel",
     "db:generate": "npm run generate --workspace=@job-tracker/db",
     "db:migrate": "npm run migrate --workspace=@job-tracker/db",
     "build:web": "npm run build --workspace=@job-tracker/web",
     "test": "npm run test:unit --workspace=@job-tracker/web",
-    "lint": "npm run lint --workspaces",
-    "prepare": "husky"
+    "lint": "npm run lint --workspaces --if-present",
+    "prepare": "husky",
+    "typecheck": "tsc --noEmit -p apps/web && tsc --noEmit -p apps/mobile",
+    "build": "npm run build:web"
   },
   "devDependencies": {
     "husky": "^9.1.7",
     "lint-staged": "^17.3.0"
+  },
+  "overrides": {
+    "mysql2": "^3.24.5"
+  },
+  "allowScripts": {
+    "prisma@7.10.0": true,
+    "@prisma/engines@7.10.0": true,
+    "@swc/core@1.16.2": true,
+    "unrs-resolver@1.12.2": true
   }
 }

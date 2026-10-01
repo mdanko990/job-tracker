@@ -15,6 +15,11 @@ vi.mock("@/lib/auth", () => ({
   auth: vi.fn(),
 }));
 
+// The chart fetches data via tRPC; it isn't under test here.
+vi.mock("./applications-pie", () => ({
+  default: () => null,
+}));
+
 const mockedAuth = vi.mocked(auth) as unknown as ReturnType<typeof vi.fn>;
 
 describe("DashboardPage", () => {

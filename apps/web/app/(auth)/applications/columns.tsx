@@ -15,7 +15,7 @@ export type ApplicationRow = {
   currentStatus: string;
   location: string | null;
   actionType: string | null;
-  lastInteractionAt: string | null;
+  lastInteractionAt: Date | null;
 };
 
 function SortableHeader({ column, label }: { column: any; label: string }) {
