@@ -1,5 +1,10 @@
 import { z } from "zod";
 import { router, protectedProcedure } from "../trpc";
+import { computeStageFunnel } from "../analytics/stage-funnel";
+import {
+  groupActivityByDay,
+  resolveTimeZone,
+} from "../analytics/activity-heatmap";
 
 const dateRangeEnum = z.enum(["today", "week", "month", "overall"]);
 
@@ -28,6 +33,18 @@ function getRangeStart(range: z.infer<typeof dateRangeEnum>): Date | undefined {
 }
 
 export const analyticsRouter = router({
+  stageFunnel: protectedProcedure.query(async ({ ctx }) => {
+    const applications = await ctx.prisma.application.findMany({
+      where: { userId: ctx.session.user.id },
+      select: {
+        currentStatus: true,
+        statusEvents: { select: { status: true }, distinct: ["status"] },
+      },
+    });
+
+    return computeStageFunnel(applications);
+  }),
+
   statusBreakdown: protectedProcedure
     .input(z.object({ range: dateRangeEnum.default("overall") }).optional())
     .query(async ({ ctx, input }) => {
@@ -43,5 +60,37 @@ export const analyticsRouter = router({
       });
       return results.map((r) => ({ status: r.currentStatus, count: r._count }));
     }),
-  // ...your other analytics procedures stay as-is
+
+  heatmapCalendar: protectedProcedure
+    .input(
+      z
+        .object({
+          // IANA name from the client, e.g. "Europe/Kyiv", so days match
+          // the user's calendar rather than the server's (UTC).
+          timeZone: z.string().optional(),
+          days: z.number().int().min(1).max(366).default(365),
+        })
+        .optional(),
+    )
+    .query(async ({ ctx, input }) => {
+      const timeZone = resolveTimeZone(input?.timeZone);
+      const to = new Date();
+      const from = new Date(to);
+      from.setDate(from.getDate() - (input?.days ?? 365) + 1);
+
+      const events = await ctx.prisma.statusEvent.findMany({
+        where: {
+          occurredAt: { gte: from },
+          application: { userId: ctx.session.user.id },
+        },
+        select: { occurredAt: true },
+      });
+
+      return groupActivityByDay(
+        events.map((e) => e.occurredAt),
+        timeZone,
+        from,
+        to,
+      );
+    }),
 });

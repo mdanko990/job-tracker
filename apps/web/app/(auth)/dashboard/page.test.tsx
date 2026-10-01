@@ -15,8 +15,17 @@ vi.mock("@/lib/auth", () => ({
   auth: vi.fn(),
 }));
 
-// The chart fetches data via tRPC; it isn't under test here.
+// These widgets fetch data via tRPC; they aren't under test here.
 vi.mock("./applications-pie", () => ({
+  default: () => null,
+}));
+vi.mock("./stage-funnel", () => ({
+  default: () => null,
+}));
+vi.mock("./activity-heatmap", () => ({
+  default: () => null,
+}));
+vi.mock("./recent-applications", () => ({
   default: () => null,
 }));
 
@@ -34,7 +43,7 @@ describe("DashboardPage", () => {
     expect(redirect).toHaveBeenCalledWith("/api/auth/signin");
   });
 
-  it("renders user name and user ID when authenticated", async () => {
+  it("renders a welcome with the user's name when authenticated", async () => {
     mockedAuth.mockResolvedValue({
       user: { id: "usr_12345", name: "Alex Smith" },
       expires: "2026-01-01",
@@ -46,7 +55,6 @@ describe("DashboardPage", () => {
     expect(
       screen.getByRole("heading", { name: /welcome back, alex smith/i }),
     ).toBeInTheDocument();
-    expect(screen.getByText(/user id: usr_12345/i)).toBeInTheDocument();
     expect(redirect).not.toHaveBeenCalled();
   });
 });

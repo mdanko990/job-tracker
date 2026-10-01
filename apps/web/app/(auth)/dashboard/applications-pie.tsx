@@ -71,8 +71,7 @@ export default function ApplicationsPie() {
 
   return (
     <div className="rounded-md border p-4">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold">Jobs</h3>
+      <div className="flex items-center justify-end mb-4">
         <Select
           value={range}
           onValueChange={(v) => setRange(v as typeof range)}
@@ -99,10 +98,10 @@ export default function ApplicationsPie() {
           No applications in this period.
         </div>
       ) : (
-        <>
+        <div className="grid grid-cols-5">
           <ChartContainer
             config={chartConfig}
-            className="mx-auto aspect-square max-h-[280px]"
+            className="mx-auto aspect-square h-[250px] col-span-3"
           >
             <PieChart>
               <ChartTooltip content={<ChartTooltipContent hideLabel />} />
@@ -149,7 +148,7 @@ export default function ApplicationsPie() {
             </PieChart>
           </ChartContainer>
 
-          <div className="grid grid-cols-3 gap-y-3 mt-4 pt-4 border-t text-sm">
+          <div className="col-span-2 flex flex-col gap-2 ml-4 pl-4 border-l text-sm">
             {chartData.map((d) => (
               <div key={d.status} className="flex items-center gap-2">
                 <span
@@ -165,7 +164,7 @@ export default function ApplicationsPie() {
               </div>
             ))}
           </div>
-        </>
+        </div>
       )}
     </div>
   );

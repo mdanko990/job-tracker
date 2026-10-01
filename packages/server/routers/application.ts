@@ -61,7 +61,14 @@ const updateApplicationInput = z.object({
 
 export const applicationRouter = router({
   list: protectedProcedure
-    .input(z.object({ status: statusEnum.optional() }).optional())
+    .input(
+      z
+        .object({
+          status: statusEnum.optional(),
+          limit: z.number().int().min(1).max(100).optional(),
+        })
+        .optional(),
+    )
     .query(async ({ ctx, input }) => {
       return ctx.prisma.application.findMany({
         where: {
@@ -72,7 +79,9 @@ export const applicationRouter = router({
           company: true,
           statusEvents: { orderBy: { occurredAt: "desc" }, take: 1 },
         },
-        orderBy: { lastInteractionAt: "desc" },
+        // Postgres sorts NULLs first in DESC; keep never-touched ones last
+        orderBy: { lastInteractionAt: { sort: "desc", nulls: "last" } },
+        take: input?.limit,
       });
     }),
 
